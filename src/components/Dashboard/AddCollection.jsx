@@ -53,13 +53,16 @@ const AddCollection = () => {
     console.log(finalCollectionData);
 
     try {
-      const response = await fetch(`http://localhost:3306/collection`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(finalCollectionData),
-      });
+      const response = await fetch(
+        `https://collections-management-server.onrender.com/collection`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(finalCollectionData),
+        }
+      );
 
       const data = await response.json();
 
