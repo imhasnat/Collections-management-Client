@@ -1,4 +1,4 @@
-const base_URL = "https://collections-manage.netlify.app";
+const base_URL = "https://collections-management-server.onrender.com";
 
 export const GET = async (api) => {
   try {

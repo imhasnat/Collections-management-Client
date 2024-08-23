@@ -5,7 +5,7 @@ import { createContext, useState, useEffect } from "react";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const base_URL = "https://collections-manage.netlify.app";
+  const base_URL = "https://collections-management-server.onrender.com";
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);

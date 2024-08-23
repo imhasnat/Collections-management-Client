@@ -54,7 +54,7 @@ const AddCollection = () => {
 
     try {
       const response = await fetch(
-        `https://collections-manage.netlify.app/collection`,
+        `https://collections-management-server.onrender.com/collection`,
         {
           method: "POST",
           headers: {

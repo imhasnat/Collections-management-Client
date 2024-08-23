@@ -6,7 +6,7 @@ import { GET } from "../services/GET";
 import CollectionItem from "../components/Dashboard/CollectionItem";
 
 const UserItemPage = () => {
-  const base_URL = "https://collections-manage.netlify.app";
+  const base_URL = "https://collections-management-server.onrender.com";
   const { collection_id } = useParams();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);

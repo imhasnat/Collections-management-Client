@@ -69,7 +69,7 @@ const EditItemForm = () => {
 
     try {
       const response = await fetch(
-        `https://collections-manage.netlify.app/items/${item_id}`,
+        `https://collections-management-server.onrender.com/items/${item_id}`,
         {
           method: "PUT",
           headers: {
