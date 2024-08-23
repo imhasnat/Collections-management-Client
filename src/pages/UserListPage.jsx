@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Spinner from "../components/Spinner";
 import { AuthContext } from "../context/AuthContext";
 import { GET } from "../services/GET";
-import CollectionItem from "../components/Dashboard/CollectionItem";
+import UserTable from "../components/Dashboard/Admin/UserTable";
 
 const UserListPage = () => {
   const base_URL = "https://collections-management-server.onrender.com";
@@ -40,7 +40,7 @@ const UserListPage = () => {
 
   return (
     <div>
-      <CollectionItem users={users} deleteItem={deleteUser} />
+      <UserTable users={users} deleteItem={deleteUser} />
     </div>
   );
 };
