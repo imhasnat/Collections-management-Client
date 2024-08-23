@@ -93,7 +93,7 @@ export const router = createBrowserRouter([
       //   element: "",
       // },
       {
-        path: "/users-list",
+        path: "/dashboard/users-list",
         element: <UserListPage />,
       },
       // {
