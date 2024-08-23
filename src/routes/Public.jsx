@@ -17,6 +17,7 @@ import EditCollectionPage from "../pages/EditCollectionPage";
 import UserItemPage from "../pages/UserItemPage";
 import AddItem from "../components/Dashboard/AddItem";
 import EditItem from "../components/Dashboard/EditItem";
+import UserListPage from "../pages/UserListPage";
 
 export const router = createBrowserRouter([
   {
@@ -91,10 +92,10 @@ export const router = createBrowserRouter([
       //   path: "/profile",
       //   element: "",
       // },
-      // {
-      //   path: "/users-list",
-      //   element: "",
-      // },
+      {
+        path: "/users-list",
+        element: <UserListPage />,
+      },
       // {
       //   path: "/all-collections",
       //   element: "",
