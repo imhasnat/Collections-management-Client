@@ -16,6 +16,7 @@ import AddCollectionPage from "../pages/AddCollectionPage";
 import EditCollectionPage from "../pages/EditCollectionPage";
 import UserItemPage from "../pages/UserItemPage";
 import AddItem from "../components/Dashboard/AddItem";
+import EditItem from "../components/Dashboard/EditItem";
 
 export const router = createBrowserRouter([
   {
@@ -81,6 +82,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/add/:id/items",
         element: <AddItem />,
+      },
+      {
+        path: "/dashboard/edit/collection/:collection_id/item/:item_id",
+        element: <EditItem />,
       },
       // {
       //   path: "/profile",

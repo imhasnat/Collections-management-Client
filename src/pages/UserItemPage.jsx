@@ -6,25 +6,25 @@ import { GET } from "../services/GET";
 import CollectionItem from "../components/Dashboard/CollectionItem";
 
 const UserItemPage = () => {
-  const base_URL = "https://collections-management-server.onrender.com";
+  const base_URL = "http://localhost:3306";
   const { collection_id } = useParams();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const { trigger, setTrigger } = useContext(AuthContext);
 
   useEffect(() => {
-    const fetchCollections = async () => {
+    const fetchItems = async () => {
       const data = await GET(`collection/${collection_id}/items`);
       setItems(data);
       setLoading(false);
     };
 
-    fetchCollections();
+    fetchItems();
   }, [collection_id, trigger]);
 
-  const deleteCollection = async (id) => {
+  const deleteItem = async (id) => {
     try {
-      const response = await fetch(`${base_URL}/collection/${id}`, {
+      const response = await fetch(`${base_URL}/items/${id}`, {
         method: "DELETE",
       });
       if (!response.ok) {
@@ -44,7 +44,7 @@ const UserItemPage = () => {
     <div>
       <CollectionItem
         items={items}
-        deleteCollection={deleteCollection}
+        deleteItem={deleteItem}
         collection_id={collection_id}
       />
     </div>

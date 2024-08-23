@@ -1,21 +1,18 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-// import Table from "../components/Table";
-import { AuthContext } from "../context/AuthContext";
+import React from "react";
+import TopCollection from "../components/Collections/TopCollection";
+import RecentItems from "../components/Items/RecentItems";
 
 const HomePage = () => {
-  const { user, loading } = useContext(AuthContext);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <div>
-      <h2>Welcome back {user?.name}</h2>
-      <Link to={"/registration"}>Sign Up</Link> <br />
-      <Link to={"/login"}>Sign In</Link> <br />
-      <Link to={"/collection"}>Collection</Link> <br />
+    <div className="my-20 mx-auto">
+      <div>
+        <h1 className="text-3xl pl-4 text-center">Top 5 collections</h1>
+        <TopCollection />
+      </div>
+      <div className="mt-20">
+        <h1 className="text-3xl text-center pl-4">Recent Items</h1>
+        <RecentItems />
+      </div>
     </div>
   );
 };

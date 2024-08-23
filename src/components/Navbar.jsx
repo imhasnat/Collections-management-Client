@@ -51,16 +51,7 @@ const Navbar = () => {
                 Collection
               </Link>
             </li>
-            <li>
-              <Link
-                to="/item"
-                aria-label="Our product"
-                title="Our product"
-                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-              >
-                Items
-              </Link>
-            </li>
+
             {isAuthenticated ? (
               <>
                 <li>

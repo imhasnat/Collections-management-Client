@@ -1,9 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { BiEdit } from "react-icons/bi";
-import { MdOutlineDeleteForever } from "react-icons/md";
 
-const CollectionItem = ({ items, deleteItem, collection_id }) => {
+const ItemTable = ({ items }) => {
   return (
     <section className="container px-4 mx-auto mt-10">
       {items?.length < 1 ? (
@@ -11,15 +8,6 @@ const CollectionItem = ({ items, deleteItem, collection_id }) => {
           <h2 className="text-lg font-medium text-gray-800 dark:text-white">
             No items
           </h2>
-
-          <button>
-            <Link
-              to={`/dashboard/add/${collection_id}/items`}
-              className=" text-center px-5 py-2 text-sm   capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 border-blue-500  text-blue-500  bg-blue-100/60"
-            >
-              Add Items
-            </Link>
-          </button>
         </div>
       ) : (
         <>
@@ -27,15 +15,6 @@ const CollectionItem = ({ items, deleteItem, collection_id }) => {
             <h2 className="text-lg  font-medium text-gray-800 dark:text-white">
               Items
             </h2>
-
-            <button>
-              <Link
-                to={`/dashboard/add/${collection_id}/items`}
-                className=" text-center px-5 py-2 text-sm   capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 border-blue-500  text-blue-500  bg-blue-100/60"
-              >
-                Add Items
-              </Link>
-            </button>
           </div>
 
           <div className="flex flex-col mt-6">
@@ -130,24 +109,6 @@ const CollectionItem = ({ items, deleteItem, collection_id }) => {
                               ))}
                             </div>
                           </td>
-
-                          <td className="px-4 py-4 text-sm whitespace-nowrap">
-                            <div className="flex items-center gap-x-6">
-                              <button
-                                onClick={() => deleteItem(item?.item_id)}
-                                className="text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none"
-                              >
-                                <MdOutlineDeleteForever className="w-5 h-5" />
-                              </button>
-
-                              <Link
-                                to={`/dashboard/edit/collection/${collection_id}/item/${item?.item_id}`}
-                                className="text-gray-500 transition-colors duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none"
-                              >
-                                <BiEdit className="w-5 h-5" />
-                              </Link>
-                            </div>
-                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -162,4 +123,4 @@ const CollectionItem = ({ items, deleteItem, collection_id }) => {
   );
 };
 
-export default CollectionItem;
+export default ItemTable;

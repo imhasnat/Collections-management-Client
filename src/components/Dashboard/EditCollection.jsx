@@ -18,7 +18,7 @@ const EditCollection = () => {
   const fetchCollectionData = async () => {
     try {
       const response = await fetch(
-        `https://collections-management-server.onrender.com/collection/${collection_id}`,
+        `http://localhost:3306/collection/${collection_id}`,
         {
           method: "GET",
           credentials: "include",
@@ -52,10 +52,11 @@ const EditCollection = () => {
       ...collection,
       user_id: user.id,
     };
+    console.log(updatedCollection);
 
     try {
       const response = await fetch(
-        `https://collections-management-server.onrender.com/collection/${collection_id}`,
+        `http://localhost:3306/collection/${collection_id}`,
         {
           method: "PUT",
           headers: {

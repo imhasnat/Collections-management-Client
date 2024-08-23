@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 const Login = ({ onSubmit, message, isError, setMessage }) => {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: "admin@gmail.com",
+    password: "123",
   });
 
   const [errorMsg, setErrorMsg] = useState({
