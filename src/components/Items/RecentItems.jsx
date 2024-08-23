@@ -9,7 +9,6 @@ const RecentItems = () => {
   useEffect(() => {
     const fetchItems = async () => {
       const data = await GET("recent/items");
-      console.log(data);
       setItems(data);
       setLoading(false);
     };

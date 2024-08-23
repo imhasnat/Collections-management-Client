@@ -10,7 +10,6 @@ const TopCollection = () => {
   useEffect(() => {
     const fetchCollections = async () => {
       const data = await GET("collections/top");
-      console.log(data);
       setCollections(data);
       setLoading(false);
     };

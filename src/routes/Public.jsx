@@ -18,6 +18,7 @@ import UserItemPage from "../pages/UserItemPage";
 import AddItem from "../components/Dashboard/AddItem";
 import EditItem from "../components/Dashboard/EditItem";
 import UserListPage from "../pages/UserListPage";
+import AdminCollectionPage from "../pages/AdminCollection";
 
 export const router = createBrowserRouter([
   {
@@ -88,18 +89,14 @@ export const router = createBrowserRouter([
         path: "/dashboard/edit/collection/:collection_id/item/:item_id",
         element: <EditItem />,
       },
-      // {
-      //   path: "/profile",
-      //   element: "",
-      // },
       {
         path: "/dashboard/users-list",
         element: <UserListPage />,
       },
-      // {
-      //   path: "/all-collections",
-      //   element: "",
-      // },
+      {
+        path: "/dashboard/all-collections",
+        element: <AdminCollectionPage />,
+      },
     ],
   },
 ]);

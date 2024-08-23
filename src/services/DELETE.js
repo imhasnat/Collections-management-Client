@@ -1,9 +1,10 @@
 const base_URL = "https://collections-management-server.onrender.com";
 
-export const GET = async (api) => {
+export const DELETE = async (api) => {
   try {
     const response = await fetch(`${base_URL}/${api}`, {
       method: "DELETE",
+      credentials: "include",
     });
     const data = await response.json();
     if (!response.ok) {

@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { MdOutlineDeleteForever } from "react-icons/md";
+import { AuthContext } from "../../../context/AuthContext";
 
-const UserTable = ({ users, deleteUser }) => {
+const UserTable = ({
+  users,
+  deleteUser,
+  changeStatus,
+  changeRole,
+  changeAdminRole,
+  errorMsg,
+}) => {
+  const { user: isAdmin } = useContext(AuthContext);
   return (
     <section className="container px-4 mx-auto mt-10">
-      {users.length < 1 ? (
+      {users?.length < 1 ? (
         <div className="flex justify-between items-center gap-x-3">
           <h2 className="text-lg font-medium text-gray-800 dark:text-white">
             No users
@@ -16,6 +25,7 @@ const UserTable = ({ users, deleteUser }) => {
             <h2 className="text-lg  font-medium text-gray-800 dark:text-white">
               Users
             </h2>
+            {errorMsg && <p className="text-red-500">{errorMsg}</p>}
           </div>
 
           <div className="flex flex-col mt-6">
@@ -65,6 +75,12 @@ const UserTable = ({ users, deleteUser }) => {
                         >
                           Status
                         </th>
+                        <th
+                          scope="col"
+                          className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                        >
+                          Action
+                        </th>
 
                         <th scope="col" className="relative py-3.5 px-4">
                           <span className="sr-only">Edit</span>
@@ -72,13 +88,13 @@ const UserTable = ({ users, deleteUser }) => {
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
-                      {users.map((user) => (
-                        <tr key={user.user_id}>
+                      {users?.map((user) => (
+                        <tr key={user?.user_id}>
                           <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                             <div className="inline-flex items-center gap-x-3">
                               <div>
                                 <h2 className="font-medium text-gray-800 dark:text-white ">
-                                  {user.first_name}
+                                  {user?.first_name}
                                 </h2>
                               </div>
                             </div>
@@ -86,39 +102,74 @@ const UserTable = ({ users, deleteUser }) => {
                           <td className="px-10 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                             <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2   ">
                               <h2 className="text-sm font-normal  ">
-                                {user.last_name}
+                                {user?.last_name}
                               </h2>
                             </div>
                           </td>
                           <td className="px-10 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                             <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2   ">
                               <h2 className="text-sm font-normal  ">
-                                {user.email}
+                                {user?.email}
                               </h2>
                             </div>
                           </td>
                           <td className="px-10 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                             <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2   ">
                               <h2 className="text-sm font-normal  ">
-                                {user.role}
+                                {user?.role}
                               </h2>
                             </div>
                           </td>
-                          <td className="px-10 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                          <td className="px-6 py-4 pl-2 text-sm font-medium text-gray-700 whitespace-nowrap">
                             <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2   ">
-                              <h2 className="text-sm font-normal  ">
-                                {user.status}
+                              <h2
+                                className={`text-sm font-normal ${
+                                  user.status == "Active"
+                                    ? "text-green-500"
+                                    : "text-red-500"
+                                }`}
+                              >
+                                {user?.status}
                               </h2>
                             </div>
                           </td>
                           <td className="px-4 py-4 text-sm whitespace-nowrap">
                             <div className="flex items-center gap-x-6">
                               <button
-                                onClick={() => deleteUser(user.user_id)}
+                                onClick={() =>
+                                  deleteUser(user.user_id, user.role)
+                                }
                                 className="text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none"
                               >
-                                <MdOutlineDeleteForever className="w-5 h-5" />
+                                <MdOutlineDeleteForever className="w-5 h-5 border-blue-500  text-blue-500" />
                               </button>
+                              <button
+                                onClick={() => changeStatus(user.user_id)}
+                                className=" text-center px-2 py-1 text-sm   capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 border-blue-500  text-blue-500  bg-blue-100/60"
+                              >
+                                {user?.status == "Active" ? "Block" : "Active"}
+                              </button>
+                              {user?.role == "User" && (
+                                <button
+                                  onClick={() =>
+                                    changeRole(user.user_id, user.role)
+                                  }
+                                  className=" text-center px-2 py-1 text-sm   capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 border-blue-500  text-blue-500  bg-blue-100/60"
+                                >
+                                  Switch Role
+                                </button>
+                              )}
+                              {user?.user_id == isAdmin.id &&
+                                isAdmin.role == "Admin" && (
+                                  <button
+                                    onClick={() =>
+                                      changeAdminRole(user.user_id)
+                                    }
+                                    className=" text-center px-2 py-1 text-sm   capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 border-blue-500  text-blue-500  bg-blue-100/60"
+                                  >
+                                    Switch Role
+                                  </button>
+                                )}
                             </div>
                           </td>
                         </tr>

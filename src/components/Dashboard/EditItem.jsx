@@ -51,8 +51,7 @@ const EditItemForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Transform the data structure
+    e;
     const formattedItem = {
       name: item.name,
       custom_field_values: {},
