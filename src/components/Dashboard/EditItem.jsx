@@ -68,13 +68,16 @@ const EditItemForm = () => {
     console.log("Formatted item for submission:", formattedItem);
 
     try {
-      const response = await fetch(`http://localhost:3306/items/${item_id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formattedItem),
-      });
+      const response = await fetch(
+        `https://collections-manage.netlify.app/items/${item_id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formattedItem),
+        }
+      );
       const data = await response.json();
       if (!response.ok) {
         console.error("Update Failed:", data.message || "Unknown error");

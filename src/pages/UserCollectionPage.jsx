@@ -5,7 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 import UserCollection from "../components/Dashboard/User/UserCollection";
 
 const UserCollectionPage = () => {
-  const base_URL = "http://localhost:3306";
+  const base_URL = "https://collections-manage.netlify.app";
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(true);
   const { user, trigger, setTrigger } = useContext(AuthContext);

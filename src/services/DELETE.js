@@ -1,4 +1,4 @@
-const base_URL = "http://localhost:3306";
+const base_URL = "https://collections-manage.netlify.app";
 
 export const GET = async (api) => {
   try {

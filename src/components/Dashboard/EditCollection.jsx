@@ -18,7 +18,7 @@ const EditCollection = () => {
   const fetchCollectionData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3306/collection/${collection_id}`,
+        `https://collections-manage.netlify.app/collection/${collection_id}`,
         {
           method: "GET",
           credentials: "include",
@@ -56,7 +56,7 @@ const EditCollection = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3306/collection/${collection_id}`,
+        `https://collections-manage.netlify.app/collection/${collection_id}`,
         {
           method: "PUT",
           headers: {
