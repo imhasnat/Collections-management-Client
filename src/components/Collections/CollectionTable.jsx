@@ -1,20 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const CollectionTable = ({ collections }) => {
+  const { t } = useTranslation();
   return (
     <section className="container px-4 mx-auto">
       {collections.length < 1 ? (
         <div className="flex items-center gap-x-3">
           <h2 className="text-lg font-medium text-gray-800 dark:text-white">
-            Collection
+            {t("collection")}
           </h2>
         </div>
       ) : (
         <>
           <div className="flex items-center gap-x-3">
             <h2 className="text-lg font-medium text-gray-800 dark:text-white">
-              Collection
+              {t("collection")}
             </h2>
           </div>
 
@@ -30,7 +32,7 @@ const CollectionTable = ({ collections }) => {
                           className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
                           <div className="flex items-center gap-x-3">
-                            <span>Name</span>
+                            <span>{t("name")}</span>
                           </div>
                         </th>
 
@@ -39,7 +41,7 @@ const CollectionTable = ({ collections }) => {
                           className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
                           <button className="flex items-center gap-x-2">
-                            <span>Category</span>
+                            <span>{t("category")}</span>
                           </button>
                         </th>
                         <th
@@ -47,7 +49,7 @@ const CollectionTable = ({ collections }) => {
                           className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
                           <button className="flex items-center gap-x-2">
-                            <span>Custom Field</span>
+                            <span>{t("cusField")}</span>
                           </button>
                         </th>
 
@@ -55,7 +57,7 @@ const CollectionTable = ({ collections }) => {
                           scope="col"
                           className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
-                          Corresponding Items
+                          {t("corresItem")}
                         </th>
                       </tr>
                     </thead>
@@ -95,7 +97,7 @@ const CollectionTable = ({ collections }) => {
                               to={`/collection/${collection.collection_id}/item`}
                               className=" text-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
                             >
-                              View Items
+                              {t("viewItem")}
                             </Link>
                           </td>
                         </tr>

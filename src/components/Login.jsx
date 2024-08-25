@@ -116,7 +116,7 @@ const Login = ({ onSubmit, message, isError, setMessage }) => {
                 Sign in
               </button>
 
-              <p className="mt-4 text-center text-gray-600 dark:text-gray-400">
+              {/* <p className="mt-4 text-center text-gray-600 dark:text-gray-400">
                 or sign in with
               </p>
 
@@ -144,10 +144,10 @@ const Login = ({ onSubmit, message, isError, setMessage }) => {
                 </svg>
 
                 <span className="mx-2">Sign in with Google</span>
-              </Link>
+              </Link> */}
 
               <div className="mt-6 text-center ">
-                <p className="text-sm ">
+                <p className="text-sm dark:text-white">
                   Don’t have an account yet?{" "}
                   <Link
                     to="/registration"

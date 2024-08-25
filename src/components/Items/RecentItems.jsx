@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Spinner from "../Spinner";
 import { GET } from "../../services/GET";
+import { useTranslation } from "react-i18next";
 
 const RecentItems = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -34,7 +36,7 @@ const RecentItems = () => {
                       className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                     >
                       <div className="flex items-center gap-x-3">
-                        <span>Name</span>
+                        <span>{t("name")}</span>
                       </div>
                     </th>
                     <th
@@ -42,7 +44,7 @@ const RecentItems = () => {
                       className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                     >
                       <div className="flex items-center gap-x-3">
-                        <span>Created At</span>
+                        <span>{t("create")}</span>
                       </div>
                     </th>
                   </tr>

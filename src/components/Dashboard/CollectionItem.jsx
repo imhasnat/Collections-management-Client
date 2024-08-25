@@ -2,14 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
 import { MdOutlineDeleteForever } from "react-icons/md";
+import { useTranslation } from "react-i18next";
 
 const CollectionItem = ({ items, deleteItem, collection_id }) => {
+  const { t } = useTranslation();
   return (
     <section className="container px-4 mx-auto mt-10">
       {items?.length < 1 ? (
         <div className="flex justify-between items-center gap-x-3">
           <h2 className="text-lg font-medium text-gray-800 dark:text-white">
-            No items
+            {t("noItem")}
           </h2>
 
           <button>
@@ -17,7 +19,7 @@ const CollectionItem = ({ items, deleteItem, collection_id }) => {
               to={`/dashboard/add/${collection_id}/items`}
               className=" text-center px-5 py-2 text-sm   capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 border-blue-500  text-blue-500  bg-blue-100/60"
             >
-              Add Items
+              {t("addItem")}
             </Link>
           </button>
         </div>
@@ -25,7 +27,7 @@ const CollectionItem = ({ items, deleteItem, collection_id }) => {
         <>
           <div className="flex justify-between items-center gap-x-3">
             <h2 className="text-lg  font-medium text-gray-800 dark:text-white">
-              Items
+              {t("addItem")}
             </h2>
 
             <button>
@@ -33,7 +35,7 @@ const CollectionItem = ({ items, deleteItem, collection_id }) => {
                 to={`/dashboard/add/${collection_id}/items`}
                 className=" text-center px-5 py-2 text-sm   capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 border-blue-500  text-blue-500  bg-blue-100/60"
               >
-                Add Items
+                {t("addItem")}
               </Link>
             </button>
           </div>
@@ -50,7 +52,7 @@ const CollectionItem = ({ items, deleteItem, collection_id }) => {
                           className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
                           <div className="flex items-center gap-x-3">
-                            <span>Name</span>
+                            <span>{t("addItem")}</span>
                           </div>
                         </th>
                         <th
@@ -58,7 +60,7 @@ const CollectionItem = ({ items, deleteItem, collection_id }) => {
                           className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
                           <button className="flex items-center gap-x-2">
-                            <span>Custom Field</span>
+                            <span>{t("cusField")}</span>
                           </button>
                         </th>
                         <th
@@ -66,7 +68,7 @@ const CollectionItem = ({ items, deleteItem, collection_id }) => {
                           className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
                           <button className="flex items-center gap-x-2">
-                            <span>Custom Field Value</span>
+                            <span>{t("cusFieldValue")}</span>
                           </button>
                         </th>
 
@@ -74,7 +76,7 @@ const CollectionItem = ({ items, deleteItem, collection_id }) => {
                           scope="col"
                           className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
-                          Tags
+                          {t("tags")}
                         </th>
 
                         <th scope="col" className="relative py-3.5 px-4">
@@ -118,7 +120,7 @@ const CollectionItem = ({ items, deleteItem, collection_id }) => {
                               ))}
                             </div>
                           </td>
-                          <td className="px-10 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                          <td className="px-2 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                             <div className="grid grid-cols-2 items-center px-3 py-1 rounded-full gap-2 overflow-x-auto ">
                               {item?.Tags?.map((ele) => (
                                 <p

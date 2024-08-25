@@ -1,5 +1,6 @@
 import React from "react";
 import { MdOutlineDeleteForever } from "react-icons/md";
+import { useTranslation } from "react-i18next";
 
 const UserTable = ({
   users,
@@ -8,19 +9,20 @@ const UserTable = ({
   changeRole,
   errorMsg,
 }) => {
+  const { t } = useTranslation();
   return (
     <section className="container px-4 mx-auto mt-10">
       {users?.length < 1 ? (
         <div className="flex justify-between items-center gap-x-3">
           <h2 className="text-lg font-medium text-gray-800 dark:text-white">
-            No users
+            {t("noUser")}
           </h2>
         </div>
       ) : (
         <>
           <div className="flex justify-between items-center gap-x-3">
             <h2 className="text-lg  font-medium text-gray-800 dark:text-white">
-              Users
+              {t("userList")}
             </h2>
           </div>
           {errorMsg && <p className="text-red-500 text-center">{errorMsg}</p>}
@@ -37,7 +39,7 @@ const UserTable = ({
                           className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
                           <div className="flex items-center gap-x-3">
-                            <span>First Name</span>
+                            <span>{t("fn")}</span>
                           </div>
                         </th>
                         <th
@@ -45,7 +47,7 @@ const UserTable = ({
                           className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
                           <div className="flex items-center gap-x-3">
-                            <span>Last Name</span>
+                            <span>{t("ln")}</span>
                           </div>
                         </th>
 
@@ -54,7 +56,7 @@ const UserTable = ({
                           className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
                           <button className="flex items-center gap-x-2">
-                            <span>Email</span>
+                            <span>{t("email")}</span>
                           </button>
                         </th>
                         <th
@@ -62,7 +64,7 @@ const UserTable = ({
                           className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
                           <button className="flex items-center gap-x-2">
-                            <span>role</span>
+                            <span>{t("role")}</span>
                           </button>
                         </th>
 
@@ -70,13 +72,13 @@ const UserTable = ({
                           scope="col"
                           className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
-                          Status
+                          {t("status")}
                         </th>
                         <th
                           scope="col"
                           className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
-                          Action
+                          {t("action")}
                         </th>
                       </tr>
                     </thead>

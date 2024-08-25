@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { GET } from "../../services/GET";
 import Spinner from "../Spinner";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const TopCollection = () => {
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchCollections = async () => {
@@ -35,7 +37,7 @@ const TopCollection = () => {
                       className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                     >
                       <div className="flex items-center gap-x-3">
-                        <span>Name</span>
+                        <span>{t("name")}</span>
                       </div>
                     </th>
 
@@ -43,7 +45,7 @@ const TopCollection = () => {
                       scope="col"
                       className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                     >
-                      Corresponding Items
+                      {t("corresItem")}
                     </th>
                   </tr>
                 </thead>
@@ -65,7 +67,7 @@ const TopCollection = () => {
                           to={`/collection/${collection.collection_id}/item`}
                           className=" text-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
                         >
-                          View Items
+                          {t("viewItem")}
                         </Link>
                       </td>
                     </tr>

@@ -2,21 +2,23 @@ import React from "react";
 import { BiEdit } from "react-icons/bi";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const UserCollection = ({ collections, deleteCollection }) => {
+  const { t } = useTranslation();
   return (
     <section className="container px-4 mx-auto mt-10">
       {collections.length < 1 ? (
         <div className="flex justify-between items-center gap-x-3">
           <h2 className="text-lg font-medium text-gray-800 dark:text-white">
-            No Collections
+            {t("noCollection")}
           </h2>
           <button>
             <Link
               to={`/dashboard/add/collection`}
               className=" text-center px-5 py-2 text-sm   capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 border-blue-500  text-blue-500  bg-blue-100/60"
             >
-              Add Items
+              {t("addItem")}
             </Link>
           </button>
         </div>
@@ -24,14 +26,14 @@ const UserCollection = ({ collections, deleteCollection }) => {
         <>
           <div className="flex justify-between items-center gap-x-3">
             <h2 className="text-lg  font-medium text-gray-800 dark:text-white">
-              Collection
+              {t("collection")}
             </h2>
             <button>
               <Link
                 to={`/dashboard/add/collection`}
                 className=" text-center px-5 py-2 text-sm   capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 border-blue-500  text-blue-500  bg-blue-100/60"
               >
-                Add Items
+                {t("addItem")}
               </Link>
             </button>
           </div>
@@ -48,7 +50,7 @@ const UserCollection = ({ collections, deleteCollection }) => {
                           className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
                           <div className="flex items-center gap-x-3">
-                            <span>Name</span>
+                            <span>{t("name")}</span>
                           </div>
                         </th>
 
@@ -57,7 +59,7 @@ const UserCollection = ({ collections, deleteCollection }) => {
                           className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
                           <button className="flex items-center gap-x-2">
-                            <span>Category</span>
+                            <span>{t("category")}</span>
                           </button>
                         </th>
                         <th
@@ -65,7 +67,7 @@ const UserCollection = ({ collections, deleteCollection }) => {
                           className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
                           <button className="flex items-center gap-x-2">
-                            <span>Custom Field</span>
+                            <span>{t("cusField")}</span>
                           </button>
                         </th>
 
@@ -73,7 +75,7 @@ const UserCollection = ({ collections, deleteCollection }) => {
                           scope="col"
                           className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
-                          Corresponding Items
+                          {t("corresItem")}
                         </th>
 
                         <th scope="col" className="relative py-3.5 px-4">
@@ -117,7 +119,7 @@ const UserCollection = ({ collections, deleteCollection }) => {
                               to={`/dashboard/collection/${collection.collection_id}/item`}
                               className=" text-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800"
                             >
-                              View Items
+                              {t("viewItem")}
                             </Link>
                           </td>
                           <td className="px-4 py-4 text-sm whitespace-nowrap">

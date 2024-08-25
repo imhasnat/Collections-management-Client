@@ -1,6 +1,6 @@
-// src/components/ItemForm.js
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import CreatableSelect from "react-select/creatable";
 import { GET } from "../../services/GET";
 import Spinner from "../Spinner";
 import { POST } from "../../services/POST";
@@ -15,6 +15,7 @@ const AddItem = () => {
   });
   const [customFields, setCustomFields] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [tagOptions, setTagOptions] = useState([]);
 
   useEffect(() => {
     const fetchCollections = async () => {
@@ -29,7 +30,17 @@ const AddItem = () => {
       setLoading(false);
     };
 
+    const fetchTags = async () => {
+      const response = await GET("tags");
+      const options = response.data.map((tag) => ({
+        value: tag.tag_id,
+        label: tag.tag_name,
+      }));
+      setTagOptions(options);
+    };
+
     fetchCollections();
+    fetchTags();
   }, [id]);
 
   if (loading) {
@@ -40,9 +51,8 @@ const AddItem = () => {
     setItem({ ...item, [e.target.name]: e.target.value });
   };
 
-  const handleTagChange = (e) => {
-    const tags = e.target.value.split(",").map((tag) => tag.trim());
-    setItem({ ...item, tags });
+  const handleTagChange = (selectedOptions) => {
+    setItem({ ...item, tags: selectedOptions });
   };
 
   const handleCustomFieldChange = (index, value) => {
@@ -56,7 +66,7 @@ const AddItem = () => {
     try {
       const itemData = {
         name: item.name,
-        tags: item.tags,
+        tags: item.tags.map((tag) => tag.label),
         custom_field_values: {},
       };
 
@@ -95,15 +105,16 @@ const AddItem = () => {
       </div>
       <div className="mb-4">
         <label htmlFor="tags" className="block mb-2">
-          Tags (comma-separated)
+          Tags
         </label>
-        <input
-          type="text"
-          id="tags"
-          name="tags"
-          value={item.tags.join(",")}
+        <CreatableSelect
+          isMulti
+          options={tagOptions}
+          value={item.tags}
           onChange={handleTagChange}
-          className="w-full px-3 py-2 border rounded"
+          className="w-full"
+          placeholder="Select or create tags"
+          formatCreateLabel={(inputValue) => `Create tag "${inputValue}"`}
         />
       </div>
       {customFields?.map((field, index) => (

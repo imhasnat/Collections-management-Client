@@ -1,19 +1,22 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const ItemTable = ({ items }) => {
+  const { t } = useTranslation();
+
   return (
     <section className="container px-4 mx-auto mt-10">
       {items?.length < 1 ? (
         <div className="flex justify-between items-center gap-x-3">
           <h2 className="text-lg font-medium text-gray-800 dark:text-white">
-            No items
+            {t("noItem")}
           </h2>
         </div>
       ) : (
         <>
           <div className="flex justify-between items-center gap-x-3">
             <h2 className="text-lg  font-medium text-gray-800 dark:text-white">
-              Items
+              {t("item")}
             </h2>
           </div>
 
@@ -29,7 +32,7 @@ const ItemTable = ({ items }) => {
                           className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
                           <div className="flex items-center gap-x-3">
-                            <span>Name</span>
+                            <span>{t("name")}</span>
                           </div>
                         </th>
                         <th
@@ -37,7 +40,7 @@ const ItemTable = ({ items }) => {
                           className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
                           <button className="flex items-center gap-x-2">
-                            <span>Custom Field</span>
+                            <span>{t("cusField")}</span>
                           </button>
                         </th>
                         <th
@@ -45,7 +48,7 @@ const ItemTable = ({ items }) => {
                           className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
                           <button className="flex items-center gap-x-2">
-                            <span>Custom Field Value</span>
+                            <span>{t("cusFieldValue")}</span>
                           </button>
                         </th>
 
@@ -53,7 +56,7 @@ const ItemTable = ({ items }) => {
                           scope="col"
                           className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                         >
-                          Tags
+                          {t("tags")}
                         </th>
                       </tr>
                     </thead>
