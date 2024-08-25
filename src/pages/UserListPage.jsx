@@ -5,13 +5,15 @@ import { GET } from "../services/GET";
 import UserTable from "../components/Dashboard/Admin/UserTable";
 import { DELETE } from "../services/DELETE";
 import { PUT } from "../services/PUT";
+import { useNavigate } from "react-router-dom";
 
 const UserListPage = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
   const { trigger, setTrigger } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -23,63 +25,59 @@ const UserListPage = () => {
     fetchItems();
   }, [trigger, user.role]);
 
-  const deleteUser = async (id, role) => {
-    let url;
-    if (role == "User") url = `users/${id}`;
-    if (role == "Admin") url = `users/delete-own-account`;
-
+  const deleteUser = async (id) => {
     try {
-      const response = await DELETE(`${url}`);
-      if (response.success) setTrigger(!trigger);
+      setLoading(true);
+      setErrorMsg("");
+      const response = await DELETE(`users/${id}`);
+      if (response.success) {
+        if (id === user.id) {
+          logout();
+          navigate("/login");
+        } else {
+          setTrigger(!trigger);
+        }
+      }
+      setLoading(false);
       if (!response.success) {
         setErrorMsg(response.message);
       }
     } catch (error) {
+      setLoading(false);
       console.error("Error deleting collection:", error);
     }
   };
 
   const changeStatus = async (id) => {
     try {
+      setLoading(true);
+      setErrorMsg("");
       const response = await PUT(`users/${id}/status`);
-      if (response) setTrigger(!trigger);
+      if (response.success) setTrigger(!trigger);
+      else setErrorMsg(response.message);
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.error("Error:", error);
+      setErrorMsg(error.message);
     }
   };
 
   const changeRole = async (id) => {
-    let role = "User";
     try {
-      const response = await fetch(
-        `https://collections-management-server.onrender.com/users/${id}/role`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ role }),
-          credentials: "include",
-        }
-      );
-      const data = await response.json();
-      if (!response.ok) {
-        return { success: false, message: data.message || "Unknown error" };
+      setLoading(true);
+      setErrorMsg("");
+      const response = await PUT(`users/${id}/role`);
+      if (response.success) {
+        setLoading(false);
+        setTrigger(!trigger);
+      } else {
+        setErrorMsg(response.message);
       }
-      setTrigger(!trigger);
-      console.log(data.message);
     } catch (error) {
+      setLoading(false);
       console.error("Error deleting collection:", error);
-      return { success: false, message: error.message };
-    }
-  };
-
-  const changeAdminRole = async (id) => {
-    try {
-      const response = await PUT(`users/${id}/remove-admin`);
-      if (response) setTrigger(!trigger);
-    } catch (error) {
-      console.error("Error:", error);
+      setErrorMsg(error.message);
     }
   };
 
@@ -94,7 +92,6 @@ const UserListPage = () => {
         deleteUser={deleteUser}
         changeStatus={changeStatus}
         changeRole={changeRole}
-        changeAdminRole={changeAdminRole}
         errorMsg={errorMsg}
       />
     </div>

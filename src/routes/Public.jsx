@@ -10,7 +10,6 @@ import Private from "./Private";
 import DashboardLayout from "../layout/DashboardLayout";
 import DashboardPage from "../pages/DashboardPage";
 import ItemPage from "../pages/ItemPage";
-import ItemForm from "../components/Items/ItemForm";
 import UserCollectionPage from "../pages/UserCollectionPage";
 import AddCollectionPage from "../pages/AddCollectionPage";
 import EditCollectionPage from "../pages/EditCollectionPage";
@@ -45,10 +44,6 @@ export const router = createBrowserRouter([
       {
         path: "/collection/:id/item",
         element: <ItemPage />,
-      },
-      {
-        path: "/collection/item/:id",
-        element: <ItemForm />,
       },
     ],
   },

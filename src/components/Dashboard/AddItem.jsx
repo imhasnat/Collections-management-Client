@@ -19,7 +19,6 @@ const AddItem = () => {
   useEffect(() => {
     const fetchCollections = async () => {
       const data = await GET(`collection/${id}/custom-fields`);
-      // Initialize custom fields with default values
       const initializedFields = data.map((field) => ({
         custom_field_id: field.custom_field_id,
         field_name: field.field_name,
@@ -55,13 +54,12 @@ const AddItem = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Prepare item data for submission
       const itemData = {
         name: item.name,
         tags: item.tags,
         custom_field_values: {},
       };
-      // Populate custom_field_values
+
       customFields.forEach((field) => {
         if (field.value) {
           itemData.custom_field_values[field.custom_field_id] = field.value;

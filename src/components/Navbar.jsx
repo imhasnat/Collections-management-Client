@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { ThemeContext } from "../context/ThemeProvider";
 
 const Navbar = () => {
   const navigate = useNavigate();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isAuthenticated, user, logout } = useContext(AuthContext);
+  const { toggleTheme } = useContext(ThemeContext);
 
   const handleLogout = () => {
     const response = logout();
@@ -50,6 +52,16 @@ const Navbar = () => {
               >
                 Collection
               </Link>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  toggleTheme();
+                }}
+                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-teal-accent-400"
+              >
+                Switch
+              </button>
             </li>
 
             {isAuthenticated ? (

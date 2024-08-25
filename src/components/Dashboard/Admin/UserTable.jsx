@@ -1,16 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { MdOutlineDeleteForever } from "react-icons/md";
-import { AuthContext } from "../../../context/AuthContext";
 
 const UserTable = ({
   users,
   deleteUser,
   changeStatus,
   changeRole,
-  changeAdminRole,
   errorMsg,
 }) => {
-  const { user: isAdmin } = useContext(AuthContext);
   return (
     <section className="container px-4 mx-auto mt-10">
       {users?.length < 1 ? (
@@ -25,8 +22,8 @@ const UserTable = ({
             <h2 className="text-lg  font-medium text-gray-800 dark:text-white">
               Users
             </h2>
-            {errorMsg && <p className="text-red-500">{errorMsg}</p>}
           </div>
+          {errorMsg && <p className="text-red-500 text-center">{errorMsg}</p>}
 
           <div className="flex flex-col mt-6">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -81,10 +78,6 @@ const UserTable = ({
                         >
                           Action
                         </th>
-
-                        <th scope="col" className="relative py-3.5 px-4">
-                          <span className="sr-only">Edit</span>
-                        </th>
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
@@ -115,7 +108,12 @@ const UserTable = ({
                           </td>
                           <td className="px-10 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                             <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2   ">
-                              <h2 className="text-sm font-normal  ">
+                              <h2
+                                className={`text-sm font-normal ${
+                                  user.role == "Admin" &&
+                                  "text-red-500 font-extrabold"
+                                }`}
+                              >
                                 {user?.role}
                               </h2>
                             </div>
@@ -136,9 +134,7 @@ const UserTable = ({
                           <td className="px-4 py-4 text-sm whitespace-nowrap">
                             <div className="flex items-center gap-x-6">
                               <button
-                                onClick={() =>
-                                  deleteUser(user.user_id, user.role)
-                                }
+                                onClick={() => deleteUser(user.user_id)}
                                 className="text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none"
                               >
                                 <MdOutlineDeleteForever className="w-5 h-5 border-blue-500  text-blue-500" />
@@ -151,25 +147,12 @@ const UserTable = ({
                               </button>
                               {user?.role == "User" && (
                                 <button
-                                  onClick={() =>
-                                    changeRole(user.user_id, user.role)
-                                  }
+                                  onClick={() => changeRole(user.user_id)}
                                   className=" text-center px-2 py-1 text-sm   capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 border-blue-500  text-blue-500  bg-blue-100/60"
                                 >
                                   Switch Role
                                 </button>
                               )}
-                              {user?.user_id == isAdmin.id &&
-                                isAdmin.role == "Admin" && (
-                                  <button
-                                    onClick={() =>
-                                      changeAdminRole(user.user_id)
-                                    }
-                                    className=" text-center px-2 py-1 text-sm   capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 border-blue-500  text-blue-500  bg-blue-100/60"
-                                  >
-                                    Switch Role
-                                  </button>
-                                )}
                             </div>
                           </td>
                         </tr>

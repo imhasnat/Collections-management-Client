@@ -45,10 +45,6 @@ const TopCollection = () => {
                     >
                       Corresponding Items
                     </th>
-
-                    <th scope="col" className="relative py-3.5 px-4">
-                      <span className="sr-only">Edit</span>
-                    </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
