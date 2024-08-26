@@ -1,11 +1,15 @@
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useParams, useNavigate } from "react-router-dom";
+import { GET } from "../../services/GET";
+import Spinner from "../Spinner";
+import toast from "react-hot-toast";
 
 const EditCollection = () => {
   const { user } = useContext(AuthContext);
   const { collection_id } = useParams();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const [collection, setCollection] = useState({
     name: "",
@@ -17,20 +21,17 @@ const EditCollection = () => {
   console.log(collection);
   const fetchCollectionData = async () => {
     try {
-      const response = await fetch(
-        `https://collections-management-server.onrender.com/collection/${collection_id}`,
-        {
-          method: "GET",
-          credentials: "include",
-        }
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setCollection(data);
+      setLoading(true);
+      const response = await GET(`collection/${collection_id}`);
+      setLoading(false);
+      if (response) {
+        setCollection(response);
       } else {
+        toast.error("Failed to fetch collection data");
         console.error("Failed to fetch collection data");
       }
     } catch (error) {
+      toast.error(error.message);
       console.error("Error fetching collection data:", error.message);
     }
   };
@@ -55,6 +56,7 @@ const EditCollection = () => {
     console.log(updatedCollection);
 
     try {
+      setLoading(true);
       const response = await fetch(
         `https://collections-management-server.onrender.com/collection/${collection_id}`,
         {
@@ -65,8 +67,10 @@ const EditCollection = () => {
           body: JSON.stringify(updatedCollection),
         }
       );
+      setLoading(false);
       const data = await response.json();
       if (!response.ok) {
+        toast.error(data.message);
         console.error("Update Failed:", data.message || "Unknown error");
       } else {
         console.log("Collection updated Successfully:", data.message);
@@ -74,9 +78,14 @@ const EditCollection = () => {
         if (user?.role == "User") navigate("/dashboard/user/collection");
       }
     } catch (error) {
+      toast.error(error.message);
       console.error("Error submitting form:", error.message);
     }
   };
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <form

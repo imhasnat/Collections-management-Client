@@ -18,7 +18,7 @@ const UserCollection = ({ collections, deleteCollection }) => {
               to={`/dashboard/add/collection`}
               className=" text-center px-5 py-2 text-sm   capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 border-blue-500  text-blue-500  bg-blue-100/60"
             >
-              {t("addItem")}
+              {t("addCollection")}
             </Link>
           </button>
         </div>
@@ -33,7 +33,7 @@ const UserCollection = ({ collections, deleteCollection }) => {
                 to={`/dashboard/add/collection`}
                 className=" text-center px-5 py-2 text-sm   capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 border-blue-500  text-blue-500  bg-blue-100/60"
               >
-                {t("addItem")}
+                {t("addCollection")}
               </Link>
             </button>
           </div>
@@ -97,7 +97,7 @@ const UserCollection = ({ collections, deleteCollection }) => {
                           </td>
                           <td className="px-10 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                             <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2   ">
-                              <h2 className="text-sm font-normal  ">
+                              <h2 className="text-sm font-normal dark:text-white ">
                                 {collection.topic}
                               </h2>
                             </div>
@@ -107,9 +107,9 @@ const UserCollection = ({ collections, deleteCollection }) => {
                               {collection?.custom_fields?.map((ele) => (
                                 <p
                                   key={ele?.custom_field_id}
-                                  className="px-3 py-1 text-xs text-blue-500 rounded-full dark:bg-gray-800 bg-blue-100/60"
+                                  className="px-3 py-1 text-xs  rounded-full dark:text-white "
                                 >
-                                  {ele?.field_name},
+                                  {ele?.field_name}
                                 </p>
                               ))}
                             </div>

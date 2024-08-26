@@ -2,13 +2,7 @@ import React from "react";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 
-const UserTable = ({
-  users,
-  deleteUser,
-  changeStatus,
-  changeRole,
-  errorMsg,
-}) => {
+const UserTable = ({ users, deleteUser, changeStatus, changeRole }) => {
   const { t } = useTranslation();
   return (
     <section className="container px-4 mx-auto mt-10">
@@ -25,8 +19,6 @@ const UserTable = ({
               {t("userList")}
             </h2>
           </div>
-          {errorMsg && <p className="text-red-500 text-center">{errorMsg}</p>}
-
           <div className="flex flex-col mt-6">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -96,14 +88,14 @@ const UserTable = ({
                           </td>
                           <td className="px-10 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                             <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2   ">
-                              <h2 className="text-sm font-normal  ">
+                              <h2 className="text-sm font-normal  dark:text-white">
                                 {user?.last_name}
                               </h2>
                             </div>
                           </td>
                           <td className="px-10 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                             <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2   ">
-                              <h2 className="text-sm font-normal  ">
+                              <h2 className="text-sm font-normal dark:text-white ">
                                 {user?.email}
                               </h2>
                             </div>
@@ -111,7 +103,7 @@ const UserTable = ({
                           <td className="px-10 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                             <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2   ">
                               <h2
-                                className={`text-sm font-normal ${
+                                className={`text-sm font-normal dark:text-white${
                                   user.role == "Admin" &&
                                   "text-red-500 font-extrabold"
                                 }`}
@@ -123,7 +115,7 @@ const UserTable = ({
                           <td className="px-6 py-4 pl-2 text-sm font-medium text-gray-700 whitespace-nowrap">
                             <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2   ">
                               <h2
-                                className={`text-sm font-normal ${
+                                className={`text-sm font-normal dark:text-white${
                                   user.status == "Active"
                                     ? "text-green-500"
                                     : "text-red-500"

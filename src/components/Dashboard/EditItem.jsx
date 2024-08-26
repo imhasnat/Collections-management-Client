@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { GET } from "../../services/GET";
 import Spinner from "../Spinner";
+import toast from "react-hot-toast";
 
 const EditItemForm = () => {
   const navigate = useNavigate();
@@ -12,7 +13,6 @@ const EditItemForm = () => {
     custom_fields: [],
   });
   const [loading, setLoading] = useState(true);
-  console.log(item);
   useEffect(() => {
     const fetchItem = async () => {
       const data = await GET(`items/${item_id}`);
@@ -67,6 +67,7 @@ const EditItemForm = () => {
     console.log("Formatted item for submission:", formattedItem);
 
     try {
+      setLoading(true);
       const response = await fetch(
         `https://collections-management-server.onrender.com/items/${item_id}`,
         {
@@ -77,14 +78,17 @@ const EditItemForm = () => {
           body: JSON.stringify(formattedItem),
         }
       );
+      setLoading(false);
       const data = await response.json();
       if (!response.ok) {
+        toast.error(data.message);
         console.error("Update Failed:", data.message || "Unknown error");
       } else {
         console.log("Item updated Successfully:", data.message);
         navigate(`/dashboard/collection/${collection_id}/item`);
       }
     } catch (error) {
+      toast.error(error.message);
       console.error("Error submitting form:", error.message);
     }
   };

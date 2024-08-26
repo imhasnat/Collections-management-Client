@@ -3,40 +3,38 @@ import Login from "../components/Login";
 import { useNavigate } from "react-router-dom";
 import { loginApi } from "../services/loginApi";
 import { AuthContext } from "../context/AuthContext";
+import toast from "react-hot-toast";
+import Spinner from "../components/Spinner";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
-  const [message, setMessage] = useState("");
-  const [isError, setIsError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (formData) => {
+    setLoading(true);
     const { success, message, user } = await loginApi(formData);
+    setLoading(false);
     try {
       if (success) {
         login(user);
-        setMessage("Login successful! Redirecting to Home page...");
-        setIsError(false);
-        setTimeout(() => navigate("/"), 1000);
+        navigate("/");
       } else {
-        setIsError(true);
-        setMessage(`Error: ${message}`);
+        toast.error(message);
       }
     } catch (error) {
       console.error("Error while login:", error.message);
-      setIsError(true);
-      setMessage(`Unexpected Error: ${error.message}`);
+      toast.error(error.message);
     }
   };
 
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
     <div>
-      <Login
-        onSubmit={handleSubmit}
-        message={message}
-        setMessage={setMessage}
-        isError={isError}
-      />
+      <Login onSubmit={handleSubmit} />
     </div>
   );
 };

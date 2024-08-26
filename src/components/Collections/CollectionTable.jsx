@@ -75,7 +75,7 @@ const CollectionTable = ({ collections }) => {
                           </td>
                           <td className="px-10 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                             <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2   ">
-                              <h2 className="text-sm font-normal  ">
+                              <h2 className="text-sm font-normal dark:text-white ">
                                 {collection.topic}
                               </h2>
                             </div>
@@ -85,7 +85,7 @@ const CollectionTable = ({ collections }) => {
                               {collection?.custom_fields?.map((ele) => (
                                 <h2
                                   key={ele?.custom_field_id}
-                                  className="text-sm font-normal  "
+                                  className="text-sm font-normal  dark:text-white"
                                 >
                                   {ele?.field_name}
                                 </h2>

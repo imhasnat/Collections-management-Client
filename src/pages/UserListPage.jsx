@@ -6,12 +6,12 @@ import UserTable from "../components/Dashboard/Admin/UserTable";
 import { DELETE } from "../services/DELETE";
 import { PUT } from "../services/PUT";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const UserListPage = () => {
   const { user, logout } = useContext(AuthContext);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [errorMsg, setErrorMsg] = useState("");
   const { trigger, setTrigger } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -28,7 +28,6 @@ const UserListPage = () => {
   const deleteUser = async (id) => {
     try {
       setLoading(true);
-      setErrorMsg("");
       const response = await DELETE(`users/${id}`);
       if (response.success) {
         if (id === user.id) {
@@ -40,10 +39,11 @@ const UserListPage = () => {
       }
       setLoading(false);
       if (!response.success) {
-        setErrorMsg(response.message);
+        toast.error(response.message);
       }
     } catch (error) {
       setLoading(false);
+      toast.error(error);
       console.error("Error deleting collection:", error);
     }
   };
@@ -51,33 +51,31 @@ const UserListPage = () => {
   const changeStatus = async (id) => {
     try {
       setLoading(true);
-      setErrorMsg("");
       const response = await PUT(`users/${id}/status`);
       if (response.success) setTrigger(!trigger);
-      else setErrorMsg(response.message);
+      else toast.error(response.message);
       setLoading(false);
     } catch (error) {
       setLoading(false);
       console.error("Error:", error);
-      setErrorMsg(error.message);
+      toast.error(error);
     }
   };
 
   const changeRole = async (id) => {
     try {
       setLoading(true);
-      setErrorMsg("");
       const response = await PUT(`users/${id}/role`);
       if (response.success) {
         setLoading(false);
         setTrigger(!trigger);
       } else {
-        setErrorMsg(response.message);
+        toast.error(response.message);
       }
     } catch (error) {
       setLoading(false);
       console.error("Error deleting collection:", error);
-      setErrorMsg(error.message);
+      toast.error(error);
     }
   };
 
@@ -92,7 +90,6 @@ const UserListPage = () => {
         deleteUser={deleteUser}
         changeStatus={changeStatus}
         changeRole={changeRole}
-        errorMsg={errorMsg}
       />
     </div>
   );

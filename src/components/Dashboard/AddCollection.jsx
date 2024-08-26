@@ -1,9 +1,13 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { POST } from "../../services/POST";
+import Spinner from "../Spinner";
+import toast from "react-hot-toast";
 
 const AddCollection = () => {
   const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const [collectionData, setCollectionData] = useState({
@@ -45,6 +49,7 @@ const AddCollection = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const finalCollectionData = {
       ...collectionData,
       user_id: user.id,
@@ -53,27 +58,16 @@ const AddCollection = () => {
     console.log(finalCollectionData);
 
     try {
-      const response = await fetch(
-        `https://collections-management-server.onrender.com/collection`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(finalCollectionData),
-        }
-      );
+      const response = await POST("collection", finalCollectionData);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        console.error("Creation Failed:", data.message || "Unknown error");
-        return { success: false, message: data.message || "Unknown error" };
+      if (!response.success) {
+        console.error("Creation Failed:", response.message || "Unknown error");
+        toast.error(response.message);
+        return { success: false, message: response.message || "Unknown error" };
       }
+      setLoading(true);
+      console.log("Collection created Successfully:", response.message);
 
-      console.log("Collection created Successfully:", data.message);
-
-      // Reset the fields if the response is OK
       setCollectionData({
         name: "",
         description: "",
@@ -84,54 +78,59 @@ const AddCollection = () => {
       setCustomFields([{ field_name: "", field_type: "string" }]);
       if (user?.role == "Admin") navigate("/dashboard/all-collections");
       if (user?.role == "User") navigate("/dashboard/user/collection");
-      return { success: true, message: data.message };
+      return { success: true, message: response.message };
     } catch (error) {
       console.error("Error submitting form:", error.message);
+      toast.error(error.message);
       return { success: false, message: error.message };
     }
   };
 
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full max-w-md mx-auto bg-white shadow-md rounded-lg p-6 mt-10"
+      className="w-full max-w-md mx-auto bg-white dark:bg-gray-800 shadow-lg rounded-xl p-8 mt-10 transition duration-300"
     >
-      <h1 className="text-2xl font-semibold text-gray-800 capitalize dark:text-gray-900 mb-6">
+      <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6">
         Add Collection
       </h1>
 
-      <div className="relative flex items-center mb-4">
+      <div className="relative mb-6">
         <input
           type="text"
           id="name"
           name="name"
           value={collectionData.name}
           onChange={handleInputChange}
-          placeholder="Name"
-          className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-3 dark:bg-gray-100 dark:text-gray-800 dark:border-gray-300 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+          placeholder="Collection Name"
+          className="block w-full py-3 px-4 text-gray-800 bg-gray-50 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:focus:border-blue-500 dark:focus:ring-blue-500 focus:outline-none transition duration-300"
           required
         />
       </div>
 
-      <div className="relative flex items-center mb-4">
+      <div className="relative mb-6">
         <textarea
           id="description"
           name="description"
           value={collectionData.description}
           onChange={handleInputChange}
           placeholder="Description"
-          rows={5}
-          className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-3 dark:bg-gray-100 dark:text-gray-800 dark:border-gray-300 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+          rows={4}
+          className="block w-full py-3 px-4 text-gray-800 bg-gray-50 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:focus:border-blue-500 dark:focus:ring-blue-500 focus:outline-none transition duration-300"
         ></textarea>
       </div>
 
-      <div className="relative flex items-center mb-4">
+      <div className="relative mb-6">
         <select
           id="topic"
           name="topic"
           value={collectionData.topic}
           onChange={handleInputChange}
-          className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-3 dark:bg-gray-100 dark:text-gray-800 dark:border-gray-300 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+          className="block w-full py-3 px-4 text-gray-800 bg-gray-50 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:focus:border-blue-500 dark:focus:ring-blue-500 focus:outline-none transition duration-300"
           required
         >
           <option value="" disabled>
@@ -144,22 +143,12 @@ const AddCollection = () => {
         </select>
       </div>
 
-      {/* <div className="relative flex items-center mb-4">
-        <input
-          type="url"
-          id="imageURL"
-          name="imageURL"
-          value={collectionData.imageURL}
-          onChange={handleInputChange}
-          placeholder="Image URL"
-          className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-3 dark:bg-gray-100 dark:text-gray-800 dark:border-gray-300 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-        />
-      </div> */}
-
-      <div className="mb-4">
-        <h3 className="text-gray-700 font-semibold mb-2">Custom Fields</h3>
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">
+          Custom Fields
+        </h3>
         {customFields.map((field, index) => (
-          <div key={index} className="relative flex items-center mb-2">
+          <div key={index} className="flex items-center mb-4">
             <input
               required
               type="text"
@@ -168,14 +157,14 @@ const AddCollection = () => {
               onChange={(e) =>
                 handleCustomFieldChange(index, "field_name", e.target.value)
               }
-              className="block w-full py-2 text-gray-700 bg-white border rounded-lg px-3 dark:bg-gray-100 dark:text-gray-800 dark:border-gray-300 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 mr-2"
+              className="block w-full py-2 px-4 text-gray-800 bg-gray-50 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:focus:border-blue-500 dark:focus:ring-blue-500 focus:outline-none transition duration-300 mr-2"
             />
             <select
               value={field.field_type}
               onChange={(e) =>
                 handleCustomFieldChange(index, "field_type", e.target.value)
               }
-              className="block w-full py-2 text-gray-700 bg-white border rounded-lg px-3 dark:bg-gray-100 dark:text-gray-800 dark:border-gray-300 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40 mr-2"
+              className="block w-full py-2 px-4 text-gray-800 bg-gray-50 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:focus:border-blue-500 dark:focus:ring-blue-500 focus:outline-none transition duration-300 mr-2"
             >
               <option value="string">String</option>
               <option value="integer">Integer</option>
@@ -183,11 +172,10 @@ const AddCollection = () => {
               <option value="date">Date</option>
               <option value="multiline text">Multiline Text</option>
             </select>
-
             <button
               type="button"
               onClick={() => handleRemoveField(index)}
-              className="text-red-500 border rounded-lg p-1 border-red-500 hover:text-red-700 focus:outline-none"
+              className="text-red-500 border border-red-500 rounded-lg p-1 hover:bg-red-100 dark:hover:bg-red-900 focus:outline-none focus:ring focus:ring-red-500 focus:ring-opacity-50 transition duration-300"
             >
               Remove
             </button>
@@ -196,7 +184,7 @@ const AddCollection = () => {
         <button
           type="button"
           onClick={handleAddField}
-          className="w-full text-center px-5 py-2 text-md   capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 border-blue-500  text-blue-500  bg-blue-100/60"
+          className="w-full py-2 px-4 bg-blue-100 text-blue-500 font-semibold rounded-lg hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-300 dark:hover:bg-blue-800 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 transition duration-300"
         >
           Add Custom Field
         </button>
@@ -204,7 +192,7 @@ const AddCollection = () => {
 
       <button
         type="submit"
-        className="w-full px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+        className="w-full py-3 px-4 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 transition duration-300"
       >
         Create Collection
       </button>

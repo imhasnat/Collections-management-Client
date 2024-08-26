@@ -87,10 +87,13 @@ const AddItem = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full max-w-md mx-auto bg-white shadow-md rounded-lg p-6 mt-10"
+      className="w-full max-w-md mx-auto bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mt-10 transition duration-300"
     >
-      <div className="mb-4">
-        <label htmlFor="name" className="block mb-2">
+      <div className="mb-6">
+        <label
+          htmlFor="name"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+        >
           Name
         </label>
         <input
@@ -99,12 +102,15 @@ const AddItem = () => {
           name="name"
           value={item.name}
           onChange={handleInputChange}
-          className="w-full px-3 py-2 border rounded"
+          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition duration-300"
           required
         />
       </div>
-      <div className="mb-4">
-        <label htmlFor="tags" className="block mb-2">
+      <div className="mb-6">
+        <label
+          htmlFor="tags"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+        >
           Tags
         </label>
         <CreatableSelect
@@ -113,15 +119,16 @@ const AddItem = () => {
           value={item.tags}
           onChange={handleTagChange}
           className="w-full"
+          classNamePrefix="react-select"
           placeholder="Select or create tags"
           formatCreateLabel={(inputValue) => `Create tag "${inputValue}"`}
         />
       </div>
       {customFields?.map((field, index) => (
-        <div key={field.custom_field_id} className="mb-4">
+        <div key={field.custom_field_id} className="mb-6">
           <label
             htmlFor={`custom-field-${field.custom_field_id}`}
-            className="block mb-2"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
           >
             {field.field_name}
           </label>
@@ -131,7 +138,7 @@ const AddItem = () => {
               id={`custom-field-${field.custom_field_id}`}
               value={customFields[index].value || ""}
               onChange={(e) => handleCustomFieldChange(index, e.target.value)}
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition duration-300"
             />
           )}
           {field.field_type === "Integer" && (
@@ -140,7 +147,7 @@ const AddItem = () => {
               id={`custom-field-${field.custom_field_id}`}
               value={customFields[index].value || ""}
               onChange={(e) => handleCustomFieldChange(index, e.target.value)}
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition duration-300"
             />
           )}
           {field.field_type === "Multiline Text" && (
@@ -148,7 +155,7 @@ const AddItem = () => {
               id={`custom-field-${field.custom_field_id}`}
               value={customFields[index].value || ""}
               onChange={(e) => handleCustomFieldChange(index, e.target.value)}
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition duration-300"
               rows={3}
             />
           )}
@@ -161,9 +168,12 @@ const AddItem = () => {
                 onChange={(e) =>
                   handleCustomFieldChange(index, e.target.checked)
                 }
-                className="mr-2"
+                className="mr-2 h-5 w-5 text-blue-500 focus:ring-blue-400 dark:focus:ring-blue-400 rounded"
               />
-              <label htmlFor={`custom-field-${field.custom_field_id}`}>
+              <label
+                htmlFor={`custom-field-${field.custom_field_id}`}
+                className="text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
                 {field.field_name}
               </label>
             </div>
@@ -174,14 +184,14 @@ const AddItem = () => {
               id={`custom-field-${field.custom_field_id}`}
               value={customFields[index].value || ""}
               onChange={(e) => handleCustomFieldChange(index, e.target.value)}
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition duration-300"
             />
           )}
         </div>
       ))}
       <button
         type="submit"
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-500 transition duration-300"
       >
         Create Item
       </button>

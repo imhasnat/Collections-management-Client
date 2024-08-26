@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { GET } from "../services/GET";
 import CollectionItem from "../components/Dashboard/CollectionItem";
+import toast from "react-hot-toast";
 
 const UserItemPage = () => {
   const base_URL = "https://collections-management-server.onrender.com";
@@ -24,14 +25,18 @@ const UserItemPage = () => {
 
   const deleteItem = async (id) => {
     try {
+      setLoading(true);
       const response = await fetch(`${base_URL}/items/${id}`, {
         method: "DELETE",
       });
+      setLoading(false);
       if (!response.ok) {
+        toast.error(response.statusText);
         throw new Error(`Failed to delete collection: ${response.statusText}`);
       }
       setTrigger(!trigger);
     } catch (error) {
+      toast.error(error);
       console.error("Error deleting collection:", error);
     }
   };

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Login = ({ onSubmit, message, isError, setMessage }) => {
+const Login = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     email: "admin@gmail.com",
     password: "123",
@@ -33,7 +33,6 @@ const Login = ({ onSubmit, message, isError, setMessage }) => {
       [name]: value,
     }));
     setErrorMsg((prev) => ({ ...prev, [name]: "" }));
-    setMessage("");
   };
 
   const handleSubmit = (e) => {
@@ -46,20 +45,11 @@ const Login = ({ onSubmit, message, isError, setMessage }) => {
   return (
     <>
       <section className="bg-white dark:bg-gray-900">
-        {message && (
-          <div
-            className={`text-center ${
-              isError ? "text-red-500" : "text-green-500"
-            }`}
-          >
-            {message}
-          </div>
-        )}
         <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">
           <form className="w-full max-w-md" onSubmit={handleSubmit}>
             {/* <img className="w-auto h-7 sm:h-8" src="https://merakiui.com/images/logo.svg" alt=""> */}
 
-            <h1 className="mt-3 text-2xl font-semibold text-gray-800 capitalize sm:text-3xl dark:text-white">
+            <h1 className="mt-2 text-2xl font-semibold text-gray-800 capitalize sm:text-3xl dark:text-white">
               sign In
             </h1>
 

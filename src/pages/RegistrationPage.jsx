@@ -2,38 +2,36 @@ import React, { useState } from "react";
 import Registration from "../components/Registration";
 import { registerApi } from "../services/registerApi";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../components/Spinner";
+import toast from "react-hot-toast";
 
 const RegistrationPage = () => {
   const navigate = useNavigate();
-  const [message, setMessage] = useState("");
-  const [isError, setIsError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (formData) => {
     try {
+      setLoading(true);
       const { success, message } = await registerApi(formData);
+      setLoading(false);
       if (success) {
-        setMessage("Registration successful! Redirecting to login...");
-        setIsError(false);
-        setTimeout(() => navigate("/login"), 1000);
+        navigate("/login");
       } else {
-        setIsError(true);
-        setMessage(`Error: ${message}`);
+        toast.error(message);
       }
     } catch (error) {
       console.error("Error submitting form:", error.message);
-      setIsError(true);
-      setMessage(`Unexpected Error: ${error.message}`);
+      toast.error(error.message);
     }
   };
 
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
     <div>
-      <Registration
-        onSubmit={handleSubmit}
-        message={message}
-        setMessage={setMessage}
-        isError={isError}
-      />
+      <Registration onSubmit={handleSubmit} />
     </div>
   );
 };

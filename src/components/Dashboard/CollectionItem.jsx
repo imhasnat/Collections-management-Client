@@ -101,7 +101,7 @@ const CollectionItem = ({ items, deleteItem, collection_id }) => {
                               {item?.custom_fields?.map((ele) => (
                                 <h2
                                   key={ele?.custom_field_id}
-                                  className="text-sm font-normal  "
+                                  className="text-sm font-normal dark:text-white"
                                 >
                                   {ele?.field_name},
                                 </h2>
@@ -113,9 +113,9 @@ const CollectionItem = ({ items, deleteItem, collection_id }) => {
                               {item?.custom_field_values?.map((ele) => (
                                 <h2
                                   key={ele?.custom_field_value_id}
-                                  className="text-sm font-normal  "
+                                  className="text-sm font-normal  dark:text-white"
                                 >
-                                  {ele?.field_value},
+                                  {ele?.field_value}
                                 </h2>
                               ))}
                             </div>
