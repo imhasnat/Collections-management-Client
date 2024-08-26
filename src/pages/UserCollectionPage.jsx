@@ -6,7 +6,7 @@ import UserCollection from "../components/Dashboard/User/UserCollection";
 import toast from "react-hot-toast";
 
 const UserCollectionPage = () => {
-  const base_URL = "https://collections-management-server.onrender.com";
+  const base_URL = "http://localhost:3306";
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(true);
   const { user, trigger, setTrigger } = useContext(AuthContext);

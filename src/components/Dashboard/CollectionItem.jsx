@@ -125,7 +125,7 @@ const CollectionItem = ({ items, deleteItem, collection_id }) => {
                               {item?.Tags?.map((ele) => (
                                 <p
                                   key={ele?.tag_id}
-                                  className="px-3 py-1 text-xs text-blue-500 rounded-full dark:bg-gray-800 bg-blue-100/60"
+                                  className="px-3 w-fit py-1 text-xs text-blue-500 rounded-full dark:bg-gray-800 bg-blue-100/60"
                                 >
                                   {ele?.tag_name}
                                 </p>

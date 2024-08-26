@@ -1,4 +1,4 @@
-const base_URL = "https://collections-management-server.onrender.com";
+const base_URL = "http://localhost:3306";
 
 export const PUT = async (url) => {
   try {
