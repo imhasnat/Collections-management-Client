@@ -58,7 +58,7 @@ const EditCollection = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:3306/collection/${collection_id}`,
+        `https://collections-management-server.onrender.com/collection/${collection_id}`,
         {
           method: "PUT",
           headers: {

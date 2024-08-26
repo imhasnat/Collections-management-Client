@@ -1,4 +1,4 @@
-const base_URL = "http://localhost:3306";
+const base_URL = "https://collections-management-server.onrender.com";
 
 export const DELETE = async (api) => {
   try {

@@ -7,7 +7,7 @@ import CollectionItem from "../components/Dashboard/CollectionItem";
 import toast from "react-hot-toast";
 
 const UserItemPage = () => {
-  const base_URL = "http://localhost:3306";
+  const base_URL = "https://collections-management-server.onrender.com";
   const { collection_id } = useParams();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
