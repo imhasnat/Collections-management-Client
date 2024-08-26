@@ -16,8 +16,6 @@ export const registerApi = async (formData) => {
       console.error("Registration Failed:", data.message || "Unknown error");
       return { success: false, message: data.message || "Unknown error" };
     }
-
-    console.log("Registration Successful:", data.message);
     return { success: true, message: data.message };
   } catch (error) {
     console.error("Error submitting form:", error.message);

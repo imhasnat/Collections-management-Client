@@ -18,7 +18,6 @@ const AuthProvider = ({ children }) => {
       if (response.ok) {
         const data = await response.json();
         setUser(data.user);
-        console.log(data.user);
         setIsAuthenticated(true);
       } else {
         setIsAuthenticated(false);
@@ -38,7 +37,6 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (userData) => {
-    console.log(userData);
     setUser(userData);
     setIsAuthenticated(true);
   };

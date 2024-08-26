@@ -55,7 +55,6 @@ const AddCollection = () => {
       user_id: user.id,
       custom_fields: customFields,
     };
-    console.log(finalCollectionData);
 
     try {
       const response = await POST("collection", finalCollectionData);
@@ -66,7 +65,6 @@ const AddCollection = () => {
         return { success: false, message: response.message || "Unknown error" };
       }
       setLoading(true);
-      console.log("Collection created Successfully:", response.message);
 
       setCollectionData({
         name: "",

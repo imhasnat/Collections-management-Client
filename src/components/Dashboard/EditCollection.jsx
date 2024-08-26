@@ -18,7 +18,6 @@ const EditCollection = () => {
     image_url: "",
     custom_fields: [],
   });
-  console.log(collection);
   const fetchCollectionData = async () => {
     try {
       setLoading(true);
@@ -53,7 +52,6 @@ const EditCollection = () => {
       ...collection,
       user_id: user.id,
     };
-    console.log(updatedCollection);
 
     try {
       setLoading(true);
@@ -64,6 +62,7 @@ const EditCollection = () => {
           headers: {
             "Content-Type": "application/json",
           },
+
           body: JSON.stringify(updatedCollection),
         }
       );
@@ -73,7 +72,6 @@ const EditCollection = () => {
         toast.error(data.message);
         console.error("Update Failed:", data.message || "Unknown error");
       } else {
-        console.log("Collection updated Successfully:", data.message);
         if (user?.role == "Admin") navigate("/dashboard/all-collections");
         if (user?.role == "User") navigate("/dashboard/user/collection");
       }
@@ -142,20 +140,6 @@ const EditCollection = () => {
           <option value="Other">Other</option>
         </select>
       </div>
-
-      {/* <div className="relative flex items-center mb-4">
-        <input
-          type="url"
-          id="imageURL"
-          value={collection.image_url}
-          onChange={(e) =>
-            setCollection({ ...collection, image_url: e.target.value })
-          }
-          placeholder="Image URL"
-          className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-3 dark:bg-gray-100 dark:text-gray-800 dark:border-gray-300 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-        />
-      </div> */}
-
       <div className="mb-4">
         <h3 className="text-gray-700 font-semibold mb-2">Custom Fields</h3>
         {collection.custom_fields.map((field, index) => (

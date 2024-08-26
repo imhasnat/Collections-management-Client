@@ -15,7 +15,6 @@ export const POST = async (api, value) => {
       console.error("Failed:", data.message || "Unknown error");
       return { success: false, message: data.message || "Unknown error" };
     }
-    console.log("Created Successfully:", data.message);
     return { success: true, message: data.message };
   } catch (error) {
     console.error("Error submitting:", error.message);

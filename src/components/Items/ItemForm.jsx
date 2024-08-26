@@ -17,7 +17,6 @@ const ItemForm = () => {
   useEffect(() => {
     const fetchCollections = async () => {
       const data = await GET(`collection/${id}/custom-fields`);
-      console.log(data);
       setCustomFields(data);
       setLoading(false);
     };

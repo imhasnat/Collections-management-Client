@@ -58,13 +58,10 @@ const EditItemForm = () => {
       tags: item.Tags.map((tag) => tag.tag_name),
     };
 
-    // Format custom field values
     item.custom_fields.forEach((field) => {
       formattedItem.custom_field_values[field.custom_field_id] =
         field.CustomFieldValue.field_value;
     });
-
-    console.log("Formatted item for submission:", formattedItem);
 
     try {
       setLoading(true);
@@ -84,7 +81,6 @@ const EditItemForm = () => {
         toast.error(data.message);
         console.error("Update Failed:", data.message || "Unknown error");
       } else {
-        console.log("Item updated Successfully:", data.message);
         navigate(`/dashboard/collection/${collection_id}/item`);
       }
     } catch (error) {

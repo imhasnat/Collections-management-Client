@@ -5,7 +5,6 @@ const ErrorPage = () => {
   return (
     <div className="relative py-16 px-4 w-full min-h-screen bg-gray-50">
       <div className="flex flex-col items-center">
-        {/* :TITLE */}
         <div className="text-center space-y-5">
           <p className="text-6xl sm:text-7xl text-purple-500 font-bold tracking-wide">
             404

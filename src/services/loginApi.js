@@ -15,8 +15,6 @@ export const loginApi = async (formData) => {
       console.error("Login Failed", data.message || "Unknown Error");
       return { success: false, message: data.message || "Unknown Error" };
     }
-
-    console.log("Login Successful:", data.message, data.user);
     return { success: true, message: data.message, user: data.user };
   } catch (error) {
     console.error("Login Failed", error.message);

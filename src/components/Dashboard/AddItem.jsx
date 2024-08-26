@@ -75,8 +75,6 @@ const AddItem = () => {
           itemData.custom_field_values[field.custom_field_id] = field.value;
         }
       });
-
-      console.log(itemData);
       await POST(`collections/${id}/items`, itemData);
       navigate(`/dashboard/collection/${id}/item`);
     } catch (error) {

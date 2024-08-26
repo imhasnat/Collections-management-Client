@@ -9,7 +9,6 @@ const ItemPage = () => {
 
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  console.log(items);
 
   useEffect(() => {
     const fetchCollections = async () => {

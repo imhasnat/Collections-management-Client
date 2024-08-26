@@ -8,7 +8,7 @@ const LanguageSwitcher = () => {
 
   const handleLanguageChange = (lang) => {
     i18n.changeLanguage(lang);
-    setIsOpen(false); // Close the dropdown after selection
+    setIsOpen(false);
   };
 
   return (
