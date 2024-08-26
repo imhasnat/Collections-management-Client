@@ -103,7 +103,7 @@ const UserTable = ({ users, deleteUser, changeStatus, changeRole }) => {
                           <td className="px-10 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                             <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2   ">
                               <h2
-                                className={`text-sm font-normal dark:text-white${
+                                className={`text-sm font-normal dark:text-white ${
                                   user.role == "Admin" &&
                                   "text-red-500 font-extrabold"
                                 }`}
@@ -115,7 +115,7 @@ const UserTable = ({ users, deleteUser, changeStatus, changeRole }) => {
                           <td className="px-6 py-4 pl-2 text-sm font-medium text-gray-700 whitespace-nowrap">
                             <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2   ">
                               <h2
-                                className={`text-sm font-normal dark:text-white${
+                                className={`text-sm font-normal ${
                                   user.status == "Active"
                                     ? "text-green-500"
                                     : "text-red-500"
