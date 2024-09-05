@@ -10,14 +10,18 @@ const AuthProvider = ({ children }) => {
   const [trigger, setTrigger] = useState(false);
 
   const checkAuthStatus = async () => {
+    const token = localStorage.getItem("token");
     try {
       const response = await fetch(`${base_URL}/auth/status`, {
         method: "GET",
-        credentials: "include",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       if (response.ok) {
         const data = await response.json();
         setUser(data.user);
+        console.log(data.user);
         setIsAuthenticated(true);
       } else {
         setIsAuthenticated(false);
@@ -41,14 +45,41 @@ const AuthProvider = ({ children }) => {
     setIsAuthenticated(true);
   };
 
+  // const logout = async () => {
+  //   try {
+  //     const response = await fetch(`${base_URL}/logout`, {
+  //       method: "POST",
+  //       // credentials: "include",
+  //     });
+
+  //     if (response.ok) {
+  //       setUser(null);
+  //       setIsAuthenticated(false);
+  //       return true;
+  //     } else {
+  //       console.error("Failed to log out.");
+  //       return false;
+  //     }
+  //   } catch (error) {
+  //     console.error("Error during logout:", error.message);
+  //   }
+  // };
+
   const logout = async () => {
     try {
+      // Optionally notify the backend to perform any cleanup if needed
       const response = await fetch(`${base_URL}/logout`, {
         method: "POST",
-        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Send the token to the backend if needed
+        },
       });
 
       if (response.ok) {
+        // Clear the token from local storage
+        localStorage.removeItem("token");
+        // Update the state to reflect the user is logged out
         setUser(null);
         setIsAuthenticated(false);
         return true;

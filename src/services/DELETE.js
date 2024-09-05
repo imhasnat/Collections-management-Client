@@ -1,10 +1,14 @@
 const base_URL = "https://collections-management-server.onrender.com";
 
 export const DELETE = async (api) => {
+  const token = localStorage.getItem("token");
   try {
     const response = await fetch(`${base_URL}/${api}`, {
       method: "DELETE",
-      credentials: "include",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      // credentials: "include",
     });
     const data = await response.json();
     if (!response.ok) {

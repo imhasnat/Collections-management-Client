@@ -18,6 +18,8 @@ import AddItem from "../components/Dashboard/AddItem";
 import EditItem from "../components/Dashboard/EditItem";
 import UserListPage from "../pages/UserListPage";
 import AdminCollectionPage from "../pages/AdminCollection";
+import Profile from "../components/Profile";
+import TicketPage from "../pages/TicketPage";
 
 export const router = createBrowserRouter([
   {
@@ -91,6 +93,14 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/all-collections",
         element: <AdminCollectionPage />,
+      },
+      {
+        path: "/dashboard/user/profile",
+        element: <Profile />,
+      },
+      {
+        path: "/dashboard/user/ticket",
+        element: <TicketPage />,
       },
     ],
   },

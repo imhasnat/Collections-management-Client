@@ -8,13 +8,14 @@ export const loginApi = async (formData) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
-      credentials: "include",
+      // credentials: "include",
     });
     const data = await response.json();
     if (!response.ok) {
       console.error("Login Failed", data.message || "Unknown Error");
       return { success: false, message: data.message || "Unknown Error" };
     }
+    localStorage.setItem("token", data.token);
     return { success: true, message: data.message, user: data.user };
   } catch (error) {
     console.error("Login Failed", error.message);

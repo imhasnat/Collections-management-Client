@@ -1,14 +1,16 @@
 const base_URL = "https://collections-management-server.onrender.com";
 
 export const PUT = async (url, value) => {
+  const token = localStorage.getItem("token");
   try {
     const response = await fetch(`${base_URL}/${url}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-      ody: JSON.stringify(value),
-      credentials: "include",
+      body: JSON.stringify(value),
+      // credentials: "include",
     });
     const data = await response.json();
     if (!response.ok) {
