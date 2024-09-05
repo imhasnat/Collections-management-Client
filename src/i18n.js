@@ -40,6 +40,7 @@ i18n.use(initReactI18next).init({
         key: "Key",
         origin: "Origin",
         jiraLink: "Jira URL",
+        noTicket: "No Tickets",
       },
     },
     fr: {
@@ -77,6 +78,7 @@ i18n.use(initReactI18next).init({
         key: "Clé",
         origin: "Origine",
         jiraLink: "URL Jira",
+        noTicket: "No Tickets",
       },
     },
   },

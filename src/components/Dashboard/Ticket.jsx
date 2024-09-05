@@ -9,7 +9,7 @@ const Ticket = ({ tickets, domain }) => {
       {tickets?.length < 1 ? (
         <div className="flex justify-between items-center gap-x-3">
           <h2 className="text-lg font-medium text-gray-800 dark:text-white">
-            {t("noItem")}
+            {t("noTicket")}
           </h2>
         </div>
       ) : (
