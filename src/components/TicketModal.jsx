@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 const Modal = ({ isOpen, closeModal, handleSubmit }) => {
   const { user } = useContext(AuthContext);
   const link = useLocation();
-  const base_URL = `https://collections-manage.netlify.app/${link.pathname}`;
+  const base_URL = `https://collections-manage.netlify.app${link.pathname}`;
   const [formData, setFormData] = useState({
     summary: "",
     priority: "Low",
