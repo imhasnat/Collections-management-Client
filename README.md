@@ -21,9 +21,11 @@ The frontend client is a React application that interacts with the backend serve
 - **User Authentication**: Secure login and signup with JWT.
 - **Role-Based Access Control**: Admin and user roles with different access levels.
 - **Collection and Item Management**: Create, view, and manage collections and items.
+- **Jira integration: Create a support ticket or report any issues.
 - **Responsive Design**: Fully responsive frontend with a modern UI.
 - **Multi-language Support**: Support for multiple languages.
 - **Dark Mode**: Stylish dark mode support.
+
 
 ## Technologies Used
 
